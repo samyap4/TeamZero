@@ -33,13 +33,14 @@ export default function App() {
   }, [user]);
 
   const getOrgs = () => {
-    fetch('http://localhost:8080/user-orgs-by-email?email=' + email)
+    console.log(process.env.REACT_APP_API_BASE_URL);
+    fetch(process.env.REACT_APP_API_BASE_URL + 'user-orgs-by-email?email=' + email)
     .then(response => response.json())
     .then(data => data.length > 0 ? setOrganizations(data) : loginWithRedirect({login_hint: email}));
   }
 
   const getOrg = () => {
-    fetch('http://localhost:8080/org-by-id?org_id=' + user.org_id)
+    fetch(process.env.REACT_APP_API_BASE_URL + 'org-by-id?org_id=' + user.org_id)
     .then(response => response.json())
     .then(data => setOrganization(data));
   }
