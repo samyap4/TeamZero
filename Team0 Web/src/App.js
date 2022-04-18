@@ -43,6 +43,11 @@ export default function App() {
     .then(response => response.json())
     .then(data => setOrganization(data));
   }
+
+  const goBack = () => {
+    setOrganization(undefined);
+    setOrganizations(undefined);
+  }
  
   const handleSubmit = (evt) => {
     evt.preventDefault();
@@ -189,11 +194,11 @@ export default function App() {
         </>
       )}
     </Disclosure>
+    <br></br>
+    <br></br>
     <div style={{width:"300px", margin:"0 auto"}}>
-      {!user && 
+      {!user && !organization &&
         <>
-          <br></br>
-          <br></br>
           <form onSubmit={handleSubmit}>
             <div class="mb-6">
               <label for="email" class="block mb-2 text-sm font-medium text-black-900 dark:text-black-300">Email:</label>
@@ -273,13 +278,14 @@ export default function App() {
             )}
           </Listbox>
           <br></br>
-          <LoginButton organization={organization.id} email={email}/>
-        </>
+          <div>
+            <button class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-800" onClick={() => goBack()} style={{display: 'inline-block', marginRight: 10}}>Back</button>
+            <LoginButton organization={organization.id} email={email}/>
+          </div>
+          </>
       }
       {user &&
         <div style={{margin: 'auto'}}>
-          <br></br>
-          <br></br>
           <div class="relative shadow-md sm:rounded-lg">
               <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
                   <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
